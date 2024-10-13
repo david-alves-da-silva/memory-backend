@@ -5,11 +5,12 @@ const saveRecord = async (req, res) => {
   const { username, time } = req.body;
 
   try {
-    const existingRecord = await Record.findOne({ username });
+    const existingRecord = await Record.findOne();
 
     if (existingRecord) {
       if (time < existingRecord.time) {
         existingRecord.time = time;
+        existingRecord.username = username;
         await existingRecord.save();
         return res.status(200).json({
           success: true,
@@ -19,7 +20,7 @@ const saveRecord = async (req, res) => {
       } else {
         return res.status(200).json({
           success: false,
-          message: 'Seu tempo não é melhor que o recorde existente.',
+          message: 'Voce nao bateu o recorde',
           record: existingRecord,
         });
       }
@@ -43,10 +44,8 @@ const saveRecord = async (req, res) => {
 
 // Controlador para buscar o recorde existente
 const getRecord = async (req, res) => {
-  const { username } = req.query; // Supondo que você passe o username como query parameter
-
   try {
-    const record = await Record.findOne({ username });
+    const record = await Record.findOne();
 
     if (record) {
       return res.status(200).json({
@@ -56,7 +55,7 @@ const getRecord = async (req, res) => {
     } else {
       return res.status(404).json({
         success: false,
-        message: 'Nenhum recorde encontrado para o usuário.',
+        message: 'Nenhum recorde encontrado.',
       });
     }
   } catch (error) {

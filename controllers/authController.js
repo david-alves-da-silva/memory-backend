@@ -1,9 +1,9 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const nodemailer = require('nodemailer'); // Para enviar e-mails
+const nodemailer = require('nodemailer');
 
-const secretKey = process.env.SECRET_KEY; // Use uma chave secreta para assinar o JWT
+const secretKey = process.env.SECRET_KEY;
 
 // Configuração do Nodemailer (ajuste conforme necessário)
 const transporter = nodemailer.createTransport({
