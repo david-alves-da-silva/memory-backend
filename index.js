@@ -5,7 +5,12 @@ const authRoutes = require('./routes/auth');
 const gameRoutes = require('./routes/game');
 const app = express();
 const PORT = process.env.PORT || 4000;
-app.use(cors());
+const corsOptions = {
+  origin: 'https://david-alves-da-silva.github.io',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true,
+};
+app.use(cors(corsOptions));
 const connectDB = require('./db');
 
 app.use(express.json());
